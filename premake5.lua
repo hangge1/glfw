@@ -1,8 +1,7 @@
 project "GLFW"
 	kind "StaticLib"
 	language "C"
-	staticruntime "off"
-	warnings "off"
+	staticruntime "on"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -29,7 +28,6 @@ project "GLFW"
 
 	filter "system:linux"
 		pic "On"
-
 		systemversion "latest"
 		
 		files
@@ -98,21 +96,11 @@ project "GLFW"
 			"_CRT_SECURE_NO_WARNINGS"
 		}
 
+
 	filter "configurations:Debug"
-		runtime "Debug"
-		symbols "on"
+        runtime "Debug"
+        symbols "on"
 
-	filter { "system:windows", "configurations:Debug-AS" }	
-		runtime "Debug"
-		symbols "on"
-		sanitize { "Address" }
-		flags { "NoRuntimeChecks", "NoIncrementalLink" }
-
-	filter "configurations:Release"
-		runtime "Release"
-		optimize "speed"
-
-    filter "configurations:Dist"
-		runtime "Release"
-		optimize "speed"
-        symbols "off"
+    filter "configurations:Release"
+        runtime "Release"
+        optimize "on"
